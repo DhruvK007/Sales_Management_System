@@ -62,7 +62,7 @@ public class PublicProduct extends Product {
             System.out.println("Enter the Product code:");
             String code=sc.next();
             if(code.equals("Checkout")){
-                //Function call for bill making
+                PublicAccount.getBill(bill);
                 break;
             }
             else{
