@@ -1,8 +1,11 @@
+import java.util.LinkedHashSet;
+
 public class Product {
     private String code;
     private String name;
     private double price;
     private long quantity;
+    public LinkedHashSet<Product> listOfProducts;
     // Constructor
     public Product(String code, String name, double price,long quantity) {
         this.code = code;
