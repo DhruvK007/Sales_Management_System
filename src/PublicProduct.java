@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class PublicProduct extends Product {
 
@@ -51,11 +53,30 @@ public class PublicProduct extends Product {
     }
 
     public void purchaseProduct() {
-        // Implement logic to purchase a public product\
+        // Implement logic to purchase a public product
         System.out.println("Enter the Product Code of the Product you want to Purchase");
-        System.out.println("Enter -1 When you are Finished Buying");
+        System.out.println("Enter Checkout in code When you are Finished Buying");
+        ArrayList<Product> bill= new ArrayList<Product>();
+        Scanner sc = new Scanner(System.in);
         while(true){
+            System.out.println("Enter the Product code:");
+            String code=sc.next();
+            if(code.equals("Checkout")){
+                //Function call for bill making
+                break;
+            }
+            else{
+                if(listOfProducts.stream().filter(obj -> obj.getCode().equals(code)).findFirst().isPresent()){
+                    System.out.println("Enter the Quantity");
+                    long quantity=sc.nextLong();
+                    Product temp = (Product) listOfProducts.stream().filter(obj->obj.getCode().equals(code)).collect(Collectors.toList());
+                    bill.add(new Product(code,temp.getName(),temp.getPrice(),quantity));
+                }
+                else{
+                    System.out.println("Please Enter a valid Product Key!!");
+                }
 
+            }
         }
     }
 
