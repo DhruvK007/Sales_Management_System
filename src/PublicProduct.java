@@ -18,7 +18,7 @@ public class PublicProduct extends Product {
 
         //Take input from the user for the product to be inputted
         System.out.println("\nEnter the details for the Product to be added\n");
-        System.out.println("Enter the Product Code:");
+        System.out.print("Enter the Product Code:");
         Scanner sc = new Scanner(System.in);
         String code = sc.next();
 
