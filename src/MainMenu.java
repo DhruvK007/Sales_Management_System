@@ -35,7 +35,7 @@ public class MainMenu {
                     System.out.println("Exiting...");
                     break;
                 default:
-                    System.out.println("Invalid choice. Try again.");
+                    System.out.println("\u001B[31m"+"Invalid choice. Try again."+"\u001B[0m"+"\n");
             }
         } while (choice != 0);
     }

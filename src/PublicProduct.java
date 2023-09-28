@@ -61,7 +61,7 @@ public class PublicProduct extends Product {
         Scanner sc = new Scanner(System.in);
         while(true){
             System.out.println("\nEnter the Product Code of the Product you want to Purchase");
-            System.out.println("Enter Checkout in code When you are Finished Buying");
+            System.out.println("Enter Checkout in code When you are Finished Buying\n");
             System.out.print("Enter the Product code: ");
             String code=sc.next();
             if(code.equals("Checkout")){
