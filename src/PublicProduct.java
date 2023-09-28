@@ -11,6 +11,9 @@ public class PublicProduct extends Product {
         listOfProducts=new LinkedHashSet<Product>();
     }
 
+    public PublicProduct() {
+        super();
+    }
     public void addProduct() {
 
         //Take input from the user for the product to be inputted
@@ -54,26 +57,26 @@ public class PublicProduct extends Product {
 
     public void purchaseProduct() {
         // Implement logic to purchase a public product
-        System.out.println("Enter the Product Code of the Product you want to Purchase");
+        System.out.println("\nEnter the Product Code of the Product you want to Purchase");
         System.out.println("Enter Checkout in code When you are Finished Buying");
         ArrayList<Product> bill= new ArrayList<Product>();
         Scanner sc = new Scanner(System.in);
         while(true){
-            System.out.println("Enter the Product code:");
+            System.out.print("Enter the Product code: ");
             String code=sc.next();
             if(code.equals("Checkout")){
-//                PublicAccount.getBill(bill);
+                PublicAccount.getBill(bill);
                 break;
             }
             else{
                 if(listOfProducts.stream().filter(obj -> obj.getCode().equals(code)).findFirst().isPresent()){
-                    System.out.println("Enter the Quantity");
+                    System.out.print("Enter the Quantity: ");
                     long quantity=sc.nextLong();
-                    Product temp = (Product) listOfProducts.stream().filter(obj->obj.getCode().equals(code)).collect(Collectors.toList());
+                    Product temp =  listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get();
                     bill.add(new Product(code,temp.getName(),temp.getPrice(),quantity));
                 }
                 else{
-                    System.out.println("Please Enter a valid Product Key!!");
+                    System.out.println("\nPlease Enter a valid Product Key!!");
                 }
 
             }
