@@ -20,37 +20,95 @@ public class PublicProduct extends Product {
         System.out.println("\nEnter the details for the Product to be added\n");
         System.out.print("Enter the Product Code:");
         Scanner sc = new Scanner(System.in);
-        String code = sc.next();
+        String addCode = sc.next();
 
-        System.out.print("Enter the Product Name:");
-        String name = sc.next();
+        //To prevent Product Code Duplication
+        if(listOfProducts.stream().filter(obj -> obj.getCode().equals(addCode)).findFirst().isPresent()){
+            System.out.println("Please Enter a Unique code for the product!!!");
+        }
 
-        System.out.print("Enter the Product Price:");
-        double price = sc.nextInt();
+        else {
+            System.out.print("Enter the Product Name:");
+            String addName = sc.next();
 
-        System.out.print("Enter the Product Quantity:");
-        long quantity = sc.nextLong();
+            System.out.print("Enter the Product Price:");
+            double addPrice = sc.nextInt();
 
-        //Add to the list
-        listOfProducts.add(new PublicProduct(code,name,price,quantity));
-        System.out.println("Product Added Successfully...");
+            System.out.print("Enter the Product Quantity:");
+            long addQuantity = sc.nextLong();
+
+            //Add to the list
+            listOfProducts.add(new PublicProduct(addCode, addName, addPrice, addQuantity));
+            System.out.println("Product Added Successfully...");
+        }
     }
 
     public void modifyProduct() {
-        // Implement logic to modify a public product
+
+        System.out.println("Enter the Code of the Product you want to modify: ");
+        Scanner sc = new Scanner(System.in);
+        String modifyCode=sc.next();
+        if(!listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().isPresent()){
+            System.out.println("Please Enter a Code of the Product that is Available!!!");
+        }
+
+        else{
+            Product display= listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get();
+
+            System.out.println("Product Code   Product Name     Product Price    Product Quantity");
+            System.out.print(String.format("%" + -12 + "s", display.getCode()));
+            System.out.print("   ");
+            System.out.print(String.format("%" + -14 + "s", display.getName()));
+            System.out.print("   ");
+            System.out.print(String.format("%" + -13 + "s", display.getPrice()));
+            System.out.print("   ");
+            System.out.print(String.format("%" + -16 + "s", display.getQuantity()));
+            System.out.println("");
+            System.out.println("Which Field of the Product do you want to Modify?");
+
+            System.out.println("Enter 1 for Changing Name");
+            System.out.println("Enter 2 for Changing Price");
+            System.out.println("Enter 3 for Changing Quantity\n");
+
+            System.out.print("Enter your choice: ");
+            int choice= sc.nextInt();
+
+            if(choice==1){
+                System.out.print("Enter the Name you want to update: ");
+                String updatedName = sc.next();
+                listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get().setName(updatedName);
+                System.out.println("Name changed successfully to "+updatedName);
+            }
+            else if(choice==2){
+                System.out.print("Enter the Price you want to update: ");
+                double updatedPrice = sc.nextDouble();
+                listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get().setPrice(updatedPrice);
+                System.out.println("Price changed successfully to "+updatedPrice);
+            }
+            else if(choice==3){
+                System.out.print("Enter the Quantity you want to update: ");
+                long updatedQuantity = sc.nextLong();
+                listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get().setQuantity(updatedQuantity);
+                System.out.println("Quantity changed successfully to "+updatedQuantity);
+            }
+
+            else{
+                System.out.println("Please Enter a Valid Input!!!");
+            }
+        }
     }
 
     public void listProducts() {
         // To Display the list of products
         System.out.println("Product Code   Product Name     Product Price    Product Quantity");
         for(Product p: listOfProducts){
-            System.out.print(String.format("%" + -12 + "s", getCode()));
+            System.out.print(String.format("%" + -12 + "s", p.getCode()));
             System.out.print("   ");
-            System.out.print(String.format("%" + -14 + "s", getName()));
+            System.out.print(String.format("%" + -14 + "s", p.getName()));
             System.out.print("   ");
-            System.out.print(String.format("%" + -13 + "s", getPrice()));
+            System.out.print(String.format("%" + -13 + "s", p.getPrice()));
             System.out.print("   ");
-            System.out.print(String.format("%" + -16 + "s", getQuantity()));
+            System.out.print(String.format("%" + -16 + "s", p.getQuantity()));
             System.out.println("");
         }
     }
@@ -59,24 +117,25 @@ public class PublicProduct extends Product {
         // Implement logic to purchase a public product
         ArrayList<Product> bill= new ArrayList<Product>();
         Scanner sc = new Scanner(System.in);
+
         while(true){
             System.out.println("\nEnter the Product Code of the Product you want to Purchase");
             System.out.println("Enter Checkout in code When you are Finished Buying\n");
             System.out.print("Enter the Product code: ");
-            String code=sc.next();
-            if(code.equals("Checkout")){
+            String purchaseCode=sc.next();
+            if(purchaseCode.equals("Checkout")){
                 PublicAccount.getBill(bill);
                 break;
             }
             else{
-                if(listOfProducts.stream().filter(obj -> obj.getCode().equals(code)).findFirst().isPresent()){
+                if(listOfProducts.stream().filter(obj -> obj.getCode().equals(purchaseCode)).findFirst().isPresent()){
                     System.out.print("Enter the Quantity: ");
                     long quantity=sc.nextLong();
-                    Product temp =  listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get();
-                    bill.add(new Product(code,temp.getName(),temp.getPrice(),quantity));
+                    Product temp =  listOfProducts.stream().filter(obj->obj.getCode().equals(purchaseCode)).findFirst().get();
+                    bill.add(new Product(purchaseCode,temp.getName(),temp.getPrice(),quantity));
                 }
                 else{
-                    System.out.println("\nPlease Enter a valid Product Key!!");
+                    System.out.println("\nPlease Enter a valid Product Code!!");
                 }
 
             }
@@ -84,6 +143,17 @@ public class PublicProduct extends Product {
     }
 
     public void deleteProduct() {
-        // Implement logic to delete a public product
+        System.out.print("Enter the code of the Product you want to Delete: ");
+        Scanner sc = new Scanner(System.in);
+        String deleteCode = sc.next();
+        if (listOfProducts.stream().filter(obj -> obj.getCode().equals(deleteCode)).findFirst().isPresent()){
+            //Removes Object with the Entered Code
+            listOfProducts.removeIf(obj -> obj.getCode().equals(deleteCode));
+            System.out.println("The product with code:"+deleteCode+"was deleted Successfully.");
+        }
+        else{
+            System.out.println("\nPlease Enter a valid Product Key!!");
+        }
+
     }
 }

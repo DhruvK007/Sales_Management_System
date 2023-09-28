@@ -1,28 +1,26 @@
+import java.util.LinkedHashSet;
+import java.util.stream.Collectors;
+
 public class PrivateProduct extends Product {
     // Define private product methods here
     public PrivateProduct(String code, String name, double price,long quantity) {
         super(code, name, price,quantity);
     }
 
-    public String getLastRecordCode() {
+    public String getLastRecordCode(LinkedHashSet<Product> productLinkedHashSet) {
         // Implement logic to return the code of the last record in the product file
-        return null;
+        Product temp= productLinkedHashSet.stream().limit(listOfProducts.size()-1).findFirst().get();
+        if(temp==null){
+            return "No Record Found!!!";
+        }
+        return ("Code: "+temp.getCode()+"\nName: "+temp.getName()+"\nPrice: "+temp.getPrice()+"\nQuantity: "+temp.getQuantity());
     }
 
-    public int getRecordNumberByCode(String code) {
-        // Implement logic to return the record number of the given code in the product file
+    public int getRecordNumberByCode(String checkCode,LinkedHashSet<Product> productLinkedHashSet){
+
+        if(productLinkedHashSet.stream().filter(obj->obj.getCode().equals(checkCode)).findFirst().isPresent()) {
+            return productLinkedHashSet.stream().map(obj -> obj.getCode()).collect(Collectors.toList()).indexOf(checkCode);
+        }
         return -1;
-    }
-
-    public void displayRecord() {
-        // Implement logic to display a private product record
-    }
-
-    public void modifyRecord() {
-        // Implement logic to modify a private product record
-    }
-
-    public void deleteRecord() {
-        // Implement logic to delete a private product record
     }
 }

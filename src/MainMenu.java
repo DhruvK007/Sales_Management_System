@@ -24,7 +24,7 @@ public class MainMenu {
                     obj.listProducts();
                     break;
                 case 3:
-                    // Handle Edit Products
+                    obj.modifyProduct();
                     break;
                 case 4:
                     // Handle Bills Report
