@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class MainMenu {
     public static void displayMainMenu() {
+
         PublicProduct obj = new PublicProduct();
         Scanner scanner = new Scanner(System.in);
         int choice;
