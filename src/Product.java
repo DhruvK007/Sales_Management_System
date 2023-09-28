@@ -49,6 +49,9 @@ public class Product {
     public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
+    public void updateQuantity(long quantity){
+        this.quantity-=quantity;
+    }
 }
 
 

@@ -115,7 +115,7 @@ public class PublicProduct extends Product {
 
     public void purchaseProduct() {
         // Implement logic to purchase a public product
-        ArrayList<Product> bill= new ArrayList<Product>();
+        LinkedHashSet<Product> bill= new LinkedHashSet<Product>();
         Scanner sc = new Scanner(System.in);
 
         while(true){
@@ -124,7 +124,7 @@ public class PublicProduct extends Product {
             System.out.print("Enter the Product code: ");
             String purchaseCode=sc.next();
             if(purchaseCode.equals("Checkout")){
-                PublicAccount.getBill(bill);
+                PublicAccount.getBill(listOfProducts,bill);
                 break;
             }
             else{
