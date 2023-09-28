@@ -17,18 +17,18 @@ public class PublicProduct extends Product {
     public void addProduct() {
 
         //Take input from the user for the product to be inputted
-        System.out.println("Enter the details for the Product to be added\n");
+        System.out.println("\nEnter the details for the Product to be added\n");
         System.out.println("Enter the Product Code:");
         Scanner sc = new Scanner(System.in);
         String code = sc.next();
 
-        System.out.println("Enter the Product Name:");
+        System.out.print("Enter the Product Name:");
         String name = sc.next();
 
-        System.out.println("Enter the Product Price:");
+        System.out.print("Enter the Product Price:");
         double price = sc.nextInt();
 
-        System.out.println("Enter the Product Quantity:");
+        System.out.print("Enter the Product Quantity:");
         long quantity = sc.nextLong();
 
         //Add to the list
