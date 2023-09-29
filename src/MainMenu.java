@@ -33,6 +33,7 @@ public class MainMenu {
                     obj.addProduct();
                     break;
                 case 0:
+                    System.out.println("Thank You for using our Sales Management System.");
                     System.out.println("Exiting...");
                     break;
                 default:

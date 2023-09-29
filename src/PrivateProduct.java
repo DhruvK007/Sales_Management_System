@@ -18,7 +18,7 @@ public class PrivateProduct extends Product {
 
     public int getRecordNumberByCode(String checkCode,LinkedHashSet<Product> productLinkedHashSet){
 
-        if(productLinkedHashSet.stream().filter(obj->obj.getCode().equals(checkCode)).findFirst().isPresent()) {
+        if(productLinkedHashSet.stream().anyMatch(obj->obj.getCode().equals(checkCode))) {
             return productLinkedHashSet.stream().map(obj -> obj.getCode()).collect(Collectors.toList()).indexOf(checkCode);
         }
         return -1;

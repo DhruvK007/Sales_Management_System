@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class PublicProduct extends Product {
 
@@ -23,7 +22,7 @@ public class PublicProduct extends Product {
         String addCode = sc.next();
 
         //To prevent Product Code Duplication
-        if(listOfProducts.stream().filter(obj -> obj.getCode().equals(addCode)).findFirst().isPresent()){
+        if(listOfProducts.stream().anyMatch(obj->obj.getCode().equals(addCode))){
             System.out.println("Please Enter a Unique code for the product!!!");
         }
 
@@ -55,7 +54,7 @@ public class PublicProduct extends Product {
         String modifyCode=sc.next();
 
         //To check whether the product of the entered code exists
-        if(!listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().isPresent()){
+        if(!listOfProducts.stream().anyMatch(obj->obj.getCode().equals(modifyCode))){
             System.out.println("Please Enter a Code of the Product that is Available!!!");
         }
 
@@ -127,7 +126,7 @@ public class PublicProduct extends Product {
             System.out.print(String.format("%" + -14 + "s", p.getName()));
             System.out.print("   ");
             System.out.print(String.format("%" + -13 + "s", p.getPrice()));
-            System.out.print("   ");
+            System.out.print("    ");
             System.out.print(String.format("%" + -16 + "s", p.getQuantity()));
             System.out.println("");
         }
@@ -156,11 +155,17 @@ public class PublicProduct extends Product {
             else{
 
                 //To check whether the entered code exists in product list or not
-                if(listOfProducts.stream().filter(obj -> obj.getCode().equals(purchaseCode)).findFirst().isPresent()){
+                if(listOfProducts.stream().anyMatch(obj->obj.getCode().equals(purchaseCode))){
                     System.out.print("Enter the Quantity: ");
                     long quantity=sc.nextLong();
                     Product temp =  listOfProducts.stream().filter(obj->obj.getCode().equals(purchaseCode)).findFirst().get();
-                    bill.add(new Product(purchaseCode,temp.getName(),temp.getPrice(),quantity));
+                    if(temp.checkQuantity(quantity)){
+                        bill.add(new Product(purchaseCode,temp.getName(),temp.getPrice(),quantity));
+                    }
+                    else{
+                        System.out.println("\nSorry for your Inconvenience but that much stock is not available for the required item.");
+                        System.out.println("Stock Available: "+temp.getQuantity());
+                    }
                 }
                 else{
                     System.out.println("\nPlease Enter a valid Product Code!!");
@@ -176,7 +181,7 @@ public class PublicProduct extends Product {
         String deleteCode = sc.next();
 
         //To check whether the entered code exists in product list or not
-        if (listOfProducts.stream().filter(obj -> obj.getCode().equals(deleteCode)).findFirst().isPresent()){
+        if (listOfProducts.stream().anyMatch(obj->obj.getCode().equals(deleteCode))){
             //Removes Object with the Entered Code
             listOfProducts.removeIf(obj -> obj.getCode().equals(deleteCode));
             System.out.println("The product with code:"+deleteCode+"was deleted Successfully.");

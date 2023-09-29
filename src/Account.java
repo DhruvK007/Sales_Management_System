@@ -9,6 +9,10 @@ public class Account {
         public static LinkedHashSet<LinkedHashSet<Product>> billList= new LinkedHashSet<LinkedHashSet<Product>>();
 
         public static void getBill(LinkedHashSet<Product>listOfProducts,LinkedHashSet<Product> bill) {
+            if(bill.isEmpty()){
+                System.out.println("No Items found in the Cart. Please Try Again!!!");
+                return;
+            }
         displayBill(bill);
         Scanner sc = new Scanner(System.in);
 
@@ -36,7 +40,7 @@ public class Account {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter the Product Code in the bill where you want to make changes?");
         String code=sc.next();
-        if(bill.stream().filter(obj->obj.getCode().equals(code)).findFirst().isPresent()){
+        if(bill.stream().anyMatch(obj->obj.getCode().equals(code))){
             System.out.println("Enter 1 for Editing the Quantity");
             System.out.println("Enter 2 to Deleting the product from the bill");
             int choice=sc.nextInt();
@@ -101,7 +105,7 @@ public class Account {
         System.out.println("Enter the Code of the Product");
         Scanner sc = new Scanner(System.in);
         String code = sc.next();
-        if(listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().isPresent()) {
+        if(listOfProducts.stream().anyMatch(obj->obj.getCode().equals(code))) {
             double totalSales = listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get().getPrice();
             long totalProduct=0;
             for(LinkedHashSet<Product> p: billList){

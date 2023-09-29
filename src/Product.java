@@ -52,6 +52,12 @@ public class Product {
     public void updateQuantity(long quantity){
         this.quantity-=quantity;
     }
+    public boolean checkQuantity(long quantity){
+        if(this.quantity-quantity<0){
+            return false;
+        }
+        return true;
+    }
 }
 
 
