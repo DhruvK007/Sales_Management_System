@@ -1,11 +1,8 @@
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 //For making bills
 public class Account {
-        private static int id=0;
-        private static double amount=0;
         public static LinkedHashSet<LinkedHashSet<Product>> billList= new LinkedHashSet<LinkedHashSet<Product>>();
 
         public static void getBill(LinkedHashSet<Product>listOfProducts,LinkedHashSet<Product> bill) {
@@ -18,11 +15,12 @@ public class Account {
 
         while(true) {
             System.out.println("Do you want to edit the Bill?");
-            System.out.println("Enter 1 for Editing");
+            System.out.println("\nEnter 1 for Editing the Bill");
             System.out.println("Enter 2 to Pay the Bill");
+            System.out.print("Enter Your Choice: ");
             int choice = sc.nextInt();
             if (choice == 1) {
-                editBill(bill);
+                editBill(listOfProducts,bill);
             } else if (choice == 2) {
                 System.out.println("Final Bill");
                 displayBill(bill);
@@ -35,20 +33,28 @@ public class Account {
             }
         }
     }
-    public static void editBill(LinkedHashSet<Product> bill){
+    public static void editBill(LinkedHashSet<Product>listOfProducts,LinkedHashSet<Product> bill){
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the Product Code in the bill where you want to make changes?");
+        System.out.println("\nPlease enter the Product Code in the bill where you want to make changes?");
+        System.out.print("Code: ");
         String code=sc.next();
         if(bill.stream().anyMatch(obj->obj.getCode().equals(code))){
-            System.out.println("Enter 1 for Editing the Quantity");
+            System.out.println("\nEnter 1 for Editing the Quantity");
             System.out.println("Enter 2 to Deleting the product from the bill");
+            System.out.print("Enter Your Choice: ");
             int choice=sc.nextInt();
             if(choice==1){
                 System.out.print("Enter the new Quantity: ");
                 long quantity = sc.nextLong();
-                bill.stream().filter(obj->obj.getCode().equals(code)).findFirst().get().setQuantity(quantity);
-                System.out.println("Quantity changed Successfully!!!");
+                if(!listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get().checkQuantity(quantity)){
+                    System.out.println("\nSorry for your Inconvenience but that much stock is not available for the required item.");
+                    System.out.println("Stock Available: "+listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get().getQuantity()+"\n");
+                }
+                else {
+                    bill.stream().filter(obj -> obj.getCode().equals(code)).findFirst().get().setQuantity(quantity);
+                    System.out.println("Quantity changed Successfully!!!");
+                }
             }else if(choice==2) {
                 bill.removeIf(obj->obj.getCode().equals(code));
                 System.out.println("Product Removed from bill Successfully");
@@ -62,7 +68,11 @@ public class Account {
     }
 
     public static void displayBill(LinkedHashSet<Product> bill){
-        System.out.println("Code_of_product   Name_of_product   Qnt.   Price ");
+        if(bill.isEmpty()){
+            System.out.println("No Items found in the Cart. Please Try Again!!!");
+            return;
+        }
+        System.out.println("\nCode_of_product   Name_of_product   Qnt.   Price ");
         for (Product a : bill) {
 
 
@@ -72,8 +82,7 @@ public class Account {
             System.out.print("   ");
             System.out.print(String.format("%" + -4 + "s", a.getQuantity()));
             System.out.print("   ");
-            System.out.print(String.format("%" + -5 + "s", a.getPrice()));
-            System.out.println("");
+            System.out.print(String.format("%" + -5 + "s", a.getPrice()+"\n"));
 
         }
         System.out.println(String.format("%" + 49 + "s", "_______"));
@@ -88,8 +97,9 @@ public class Account {
             return;
         }
 
-        System.out.println("Enter 1 for Bill Report");
+        System.out.println("\nEnter 1 for Bill Report");
         System.out.println("Enter 2 for Product Report");
+        System.out.print("Enter Your Choice: ");
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
         if(choice==1){
@@ -127,28 +137,28 @@ public class Account {
     }
     public static void getBillReport(){
         int id=1;
-        System.out.println("Bill_ID  Total_Items_Purchased   Amount_Paid");
+        System.out.println("\nBill_ID  Total_Items_Purchased   Amount_Paid");
         for(LinkedHashSet<Product> obj: billList){
             System.out.print(String.format("%" + -10 + "s", id++));
             System.out.print(String.format("%" + -24 + "s",totalItems(obj)));
             System.out.println(totalAmountPaid(obj));
         }
 
-        System.out.println("Do you want to View any bill or Delete any bill?");
+        System.out.println("\nDo you want to View any bill or Delete any bill?");
         System.out.print("Enter Y for Yes / N for No: ");
         Scanner sc =new Scanner(System.in);
         String choice=sc.next();
         if(choice.equals("Y")){
-            System.out.println("Enter 1 to view any Full Bill");
+            System.out.println("\nEnter 1 to view any Full Bill");
             System.out.println("Enter 2 to delete any Bill");
-            System.out.print("Enter your Choice: ");
+            System.out.print("\nEnter your Choice: ");
             int select=sc.nextInt();
             if(select==1){
-                System.out.println("Enter the ID of the Bill: ");
+                System.out.print("Enter the ID of the Bill: ");
                 long bid= sc.nextInt();
                 displayBill(billList.stream().skip(bid-1).findFirst().get());
             } else if (select==2) {
-                System.out.println("Enter the ID of the Bill: ");
+                System.out.print("Enter the ID of the Bill: ");
                 long bid= sc.nextInt();
                 billList.remove(billList.stream().skip(bid-1).findFirst().get());
                 System.out.println("Bill with id "+bid+"was deleted successfully.");

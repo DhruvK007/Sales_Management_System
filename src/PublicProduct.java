@@ -17,7 +17,7 @@ public class PublicProduct extends Product {
 
         //Take input from the user for the product to be inputted
         System.out.println("\nEnter the details for the Product to be added\n");
-        System.out.print("Enter the Product Code:");
+        System.out.print("Enter the Product Code: ");
         Scanner sc = new Scanner(System.in);
         String addCode = sc.next();
 
@@ -27,13 +27,13 @@ public class PublicProduct extends Product {
         }
 
         else {
-            System.out.print("Enter the Product Name:");
+            System.out.print("Enter the Product Name: ");
             String addName = sc.next();
 
-            System.out.print("Enter the Product Price:");
+            System.out.print("Enter the Product Price: ");
             double addPrice = sc.nextInt();
 
-            System.out.print("Enter the Product Quantity:");
+            System.out.print("Enter the Product Quantity: ");
             long addQuantity = sc.nextLong();
 
             //Add to the list
@@ -49,7 +49,7 @@ public class PublicProduct extends Product {
             return;
         }
 
-        System.out.println("Enter the Code of the Product you want to modify: ");
+        System.out.print("Enter the Code of the Product you want to modify: ");
         Scanner sc = new Scanner(System.in);
         String modifyCode=sc.next();
 
@@ -62,7 +62,7 @@ public class PublicProduct extends Product {
             //To display before Modification
             Product display= listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get();
 
-            System.out.println("Product Code   Product Name     Product Price    Product Quantity");
+            System.out.println("\nProduct Code   Product Name     Product Price    Product Quantity");
             System.out.print(String.format("%" + -12 + "s", display.getCode()));
             System.out.print("   ");
             System.out.print(String.format("%" + -14 + "s", display.getName()));
@@ -71,7 +71,7 @@ public class PublicProduct extends Product {
             System.out.print("   ");
             System.out.print(String.format("%" + -16 + "s", display.getQuantity()));
             System.out.println("");
-            System.out.println("Which Field of the Product do you want to Modify?");
+            System.out.println("\nWhich Field of the Product do you want to Modify?");
 
             System.out.println("Enter 1 for Changing Name");
             System.out.println("Enter 2 for Changing Price");
@@ -100,7 +100,10 @@ public class PublicProduct extends Product {
             else if(choice==3){
                 System.out.print("Enter the Quantity you want to update: ");
                 long updatedQuantity = sc.nextLong();
-
+                if(updatedQuantity<0){
+                    System.out.println("Quantity Cannot be Negative!!!");
+                    return;
+                }
                 //Updating Quantity using setQuantity setter Method
                 listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get().setQuantity(updatedQuantity);
                 System.out.println("Quantity changed successfully to "+updatedQuantity);
@@ -114,12 +117,12 @@ public class PublicProduct extends Product {
 
     public void listProducts() {
         if(listOfProducts.isEmpty()){
-            System.out.println("No Product Records Found!!!");
+            System.out.println("\nNo Product Records Found!!!");
             return;
         }
 
         // To Display the list of products
-        System.out.println("Product Code   Product Name     Product Price    Product Quantity");
+        System.out.println("\nProduct Code   Product Name     Product Price    Product Quantity");
         for(Product p: listOfProducts){
             System.out.print(String.format("%" + -12 + "s", p.getCode()));
             System.out.print("   ");

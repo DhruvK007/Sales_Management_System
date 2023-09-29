@@ -10,7 +10,7 @@ public class MainMenu {
             System.out.println("1. Purchase Products");
             System.out.println("2. List Products");
             System.out.println("3. Edit Products");
-            System.out.println("4. Bills/Product Report");
+            System.out.println("4. Lifetime Bills/Product Report");
             System.out.println("5. Add Products");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
