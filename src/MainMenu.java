@@ -6,7 +6,7 @@ public class MainMenu {
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("Main Menu:");
+            System.out.println("\nMain Menu:");
             System.out.println("1. Purchase Products");
             System.out.println("2. List Products");
             System.out.println("3. Edit Products");
