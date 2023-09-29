@@ -124,7 +124,7 @@ public class PublicProduct extends Product {
             System.out.print("Enter the Product code: ");
             String purchaseCode=sc.next();
             if(purchaseCode.equals("Checkout")){
-                PublicAccount.getBill(listOfProducts,bill);
+                Account.getBill(listOfProducts,bill);
                 break;
             }
             else{

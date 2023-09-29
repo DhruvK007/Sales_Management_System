@@ -9,7 +9,7 @@ public class PrivateProduct extends Product {
 
     public String getLastRecordCode(LinkedHashSet<Product> productLinkedHashSet) {
         // Implement logic to return the code of the last record in the product file
-        Product temp= productLinkedHashSet.stream().limit(listOfProducts.size()-1).findFirst().get();
+        Product temp= productLinkedHashSet.stream().skip(listOfProducts.size()-1).findFirst().get();
         if(temp==null){
             return "No Record Found!!!";
         }
