@@ -26,7 +26,7 @@ public class PublicProduct extends Product {
 
         //To prevent Product Code Duplication
         if(listOfProducts.stream().anyMatch(obj->obj.getCode().equals(addCode))){
-            System.out.println("Please Enter a Unique code for the product!!!");
+            System.out.println("\u001B[31m"+"Please Enter a Unique code for the product!!!"+"\u001B[0m");
         }
 
         else {
@@ -41,14 +41,14 @@ public class PublicProduct extends Product {
 
             //Add to the list
             listOfProducts.add(new PublicProduct(addCode, addName, addPrice, addQuantity));
-            System.out.println("Product Added Successfully...");
+            System.out.println("\u001B[32m"+"Product Added Successfully..."+"\u001B[0m");
         }
     }
 
     public void modifyProduct() {
 
         if(listOfProducts.isEmpty()){
-            System.out.println("No Product Records Found!!!");
+            System.out.println("\u001B[31m"+"No Product Records Found!!!"+"\u001B[0m");
             return;
         }
 
@@ -58,7 +58,7 @@ public class PublicProduct extends Product {
 
         //To check whether the product of the entered code exists
         if(listOfProducts.stream().noneMatch(obj->obj.getCode().equals(modifyCode))){
-            System.out.println("Please Enter a Code of the Product that is Available!!!");
+            System.out.println("\u001B[31m"+"Please Enter a Code of the Product that is Available!!!"+"\u001B[0m");
         }
 
         else{
@@ -90,7 +90,7 @@ public class PublicProduct extends Product {
                 //Updating name using setName setter Method
                 listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get().setName(updatedName);
 
-                System.out.println("Name changed successfully to "+updatedName);
+                System.out.println("\u001B[32m"+"Name changed successfully to "+updatedName+"\u001B[0m");
             }
             else if(choice==2){
                 System.out.print("Enter the Price you want to update: ");
@@ -98,29 +98,29 @@ public class PublicProduct extends Product {
 
                 //Updating Price using setPrice setter Method
                 listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get().setPrice(updatedPrice);
-                System.out.println("Price changed successfully to "+updatedPrice);
+                System.out.println("\u001B[32m"+"Price changed successfully to "+updatedPrice+"\u001B[0m");
             }
             else if(choice==3){
                 System.out.print("Enter the Quantity you want to update: ");
                 long updatedQuantity = sc.nextLong();
                 if(updatedQuantity<0){
-                    System.out.println("Quantity Cannot be Negative!!!");
+                    System.out.println("\u001B[31m"+"Quantity Cannot be Negative!!!"+"\u001B[0m");
                     return;
                 }
                 //Updating Quantity using setQuantity setter Method
                 listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get().setQuantity(updatedQuantity);
-                System.out.println("Quantity changed successfully to "+updatedQuantity);
+                System.out.println("\u001B[32m"+"Quantity changed successfully to "+updatedQuantity+"\u001B[0m");
             }
 
             else{
-                System.out.println("Please Enter a Valid Input!!!");
+                System.out.println("\u001B[31m"+"Please Enter a Valid Input!!!"+"\u001B[0m");
             }
         }
     }
 
     public void listProducts() {
         if(listOfProducts.isEmpty()){
-            System.out.println("\nNo Product Records Found!!!");
+            System.out.println("\u001B[31m"+"\nNo Product Records Found!!!"+"\u001B[0m");
             return;
         }
 
@@ -140,7 +140,7 @@ public class PublicProduct extends Product {
 
     public void purchaseProduct() {
         if(listOfProducts.isEmpty()){
-            System.out.println("No Product Records Found!!!");
+            System.out.println("\u001B[31m"+"No Product Records Found!!!"+"\u001B[0m");
             return;
         }
 
@@ -169,12 +169,12 @@ public class PublicProduct extends Product {
                         bill.add(new Product(purchaseCode,temp.getName(),temp.getPrice(),quantity));
                     }
                     else{
-                        System.out.println("\nSorry for your Inconvenience but that much stock is not available for the required item.");
+                        System.out.println("\u001B[31m"+"\nSorry for your Inconvenience but that much stock is not available for the required item."+"\u001B[0m");
                         System.out.println("Stock Available: "+temp.getQuantity());
                     }
                 }
                 else{
-                    System.out.println("\nPlease Enter a valid Product Code!!");
+                    System.out.println("\u001B[31m"+"\nPlease Enter a valid Product Code!!"+"\u001B[0m");
                 }
 
             }
@@ -193,7 +193,7 @@ public class PublicProduct extends Product {
             System.out.println("The product with code:"+deleteCode+" was deleted Successfully.");
         }
         else{
-            System.out.println("\nPlease Enter a valid Product Key!!");
+            System.out.println("\u001B[31m"+"\nPlease Enter a valid Product Key!!"+"\u001B[0m");
         }
 
     }
