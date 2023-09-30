@@ -7,6 +7,8 @@ public class Account {
         public static LinkedHashSet<LinkedHashSet<Product>> billList= new LinkedHashSet<LinkedHashSet<Product>>();
 
         public static void getBill(LinkedHashSet<Product>listOfProducts,LinkedHashSet<Product> bill) {
+
+            //To check whether there are items in cart or not
             if(bill.isEmpty()){
                 System.out.println("\u001B[31m"+"No Items found in the Cart. Please Try Again!!!"+"\u001B[0m");
                 return;
@@ -31,9 +33,13 @@ public class Account {
                     System.out.println("\u001B[31m"+"No Items found in the Cart. Please Try Again!!!"+"\u001B[0m");
                     return;
                 }
-                System.out.println("\u001B[34m"+"Final Bill"+"\u001B[0m");
+                System.out.println("\u001B[34m"+"\n\t\t\t\t\tFinal Bill"+"\u001B[0m");
                 displayBill(bill);
+
+                //Adding a bill to billList
                 billList.add(bill);
+
+                //Updates the quantity of stock in the list of Products
                 for (Product obj:bill){
                     listOfProducts.stream().filter(p->p.getCode().equals(obj.getCode())).findFirst().get().updateQuantity(obj.getQuantity());
                 }
@@ -122,7 +128,7 @@ public class Account {
         }
     }
     public static void getProductReport(LinkedHashSet<Product>listOfProducts){
-        System.out.println("Enter the Code of the Product");
+        System.out.print("Enter the Code of the Product: ");
         Scanner sc = new Scanner(System.in);
         String code = sc.next();
         if(listOfProducts.stream().anyMatch(obj->obj.getCode().equals(code))) {
@@ -186,6 +192,7 @@ public class Account {
     }
 
     public static double totalAmountPaid(LinkedHashSet<Product> obj){
+        //Calculate total amount to be paid in the bill
         double Total = 0;
         for (Product a : obj) {
             Total = Total +(a.getQuantity() *a.getPrice());
@@ -194,6 +201,7 @@ public class Account {
     }
 
     public static long totalItems(LinkedHashSet<Product> obj){
+            //Calculate total items in the bill
             long total=0;
             for(Product p: obj) {
                 total+=p.getQuantity();

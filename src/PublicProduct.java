@@ -2,9 +2,10 @@ import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 public class PublicProduct extends Product {
+
+    //Stores the list of Products
     private LinkedHashSet<Product> listOfProducts;
 
-    // Define public product methods here
     public PublicProduct(String code, String name, double price,long quantity) {
         super(code, name, price,quantity);
         listOfProducts=new LinkedHashSet<Product>();
@@ -47,6 +48,7 @@ public class PublicProduct extends Product {
 
     public void modifyProduct() {
 
+        //To check whether any product exists or not
         if(listOfProducts.isEmpty()){
             System.out.println("\u001B[31m"+"No Product Records Found!!!"+"\u001B[0m");
             return;
@@ -66,6 +68,9 @@ public class PublicProduct extends Product {
             Product display= listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get();
 
             System.out.println("\nProduct Code   Product Name     Product Price    Product Quantity");
+
+            //Used String.format to Left align the Values, it is just like printf in C
+
             System.out.print(String.format("%" + -12 + "s", display.getCode()));
             System.out.print("   ");
             System.out.print(String.format("%" + -14 + "s", display.getName()));
@@ -103,6 +108,8 @@ public class PublicProduct extends Product {
             else if(choice==3){
                 System.out.print("Enter the Quantity you want to update: ");
                 long updatedQuantity = sc.nextLong();
+
+                //To handle user entering Negative Quantities
                 if(updatedQuantity<0){
                     System.out.println("\u001B[31m"+"Quantity Cannot be Negative!!!"+"\u001B[0m");
                     return;
@@ -119,8 +126,10 @@ public class PublicProduct extends Product {
     }
 
     public void listProducts() {
+
+        //To check whether any product exist or not
         if(listOfProducts.isEmpty()){
-            System.out.println("\u001B[31m"+"\nNo Product Records Found!!!"+"\u001B[0m");
+            System.out.println("\u001B[31m"+"No Product Records Found!!!"+"\u001B[0m");
             return;
         }
 
@@ -139,6 +148,8 @@ public class PublicProduct extends Product {
     }
 
     public void purchaseProduct() {
+
+        //To check whether any product exist or not
         if(listOfProducts.isEmpty()){
             System.out.println("\u001B[31m"+"No Product Records Found!!!"+"\u001B[0m");
             return;
@@ -155,6 +166,8 @@ public class PublicProduct extends Product {
 
             //To check out after Adding items to Cart
             if(purchaseCode.equals("Checkout")){
+                //Function call by static getBill method in account
+                //We pass the listOfProducts and items purchased i.e. bill
                 Account.getBill(listOfProducts,bill);
                 break;
             }
@@ -182,6 +195,13 @@ public class PublicProduct extends Product {
     }
 
     public void deleteProduct() {
+
+        //To check if any products exist
+        if(listOfProducts.isEmpty()){
+            System.out.println("\u001B[31m"+"No Product Records Found!!"+"\u001B[0m");
+            return;
+        }
+
         System.out.print("Enter the code of the Product you want to Delete: ");
         Scanner sc = new Scanner(System.in);
         String deleteCode = sc.next();

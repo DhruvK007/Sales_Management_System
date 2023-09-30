@@ -13,6 +13,7 @@ public class Product {
         this.quantity=quantity;
     }
 
+    //Empty default constructor to solve problem in inheritance
     public Product(){}
 
     // Getters and setters
