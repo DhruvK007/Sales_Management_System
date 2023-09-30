@@ -8,7 +8,7 @@ public class Account {
 
         public static void getBill(LinkedHashSet<Product>listOfProducts,LinkedHashSet<Product> bill) {
             if(bill.isEmpty()){
-                System.out.println("No Items found in the Cart. Please Try Again!!!");
+                System.out.println("\u001B[31m"+"No Items found in the Cart. Please Try Again!!!"+"\u001B[0m");
                 return;
             }
         displayBill(bill);
@@ -16,7 +16,7 @@ public class Account {
 
         while(true) {
             if(bill.isEmpty()){
-                System.out.println("No Items found in the Cart. Please Try Again!!!");
+                System.out.println("\u001B[31m"+"No Items found in the Cart. Please Try Again!!!"+"\u001B[0m");
                 return;
             }
             System.out.println("\nDo you want to edit the Bill?");
@@ -28,16 +28,16 @@ public class Account {
                 editBill(listOfProducts,bill);
             } else if (choice == 2) {
                 if(bill.isEmpty()){
-                    System.out.println("No Items found in the Cart. Please Try Again!!!");
+                    System.out.println("\u001B[31m"+"No Items found in the Cart. Please Try Again!!!"+"\u001B[0m");
                     return;
                 }
-                System.out.println("Final Bill");
+                System.out.println("\u001B[34m"+"Final Bill"+"\u001B[0m");
                 displayBill(bill);
                 billList.add(bill);
                 for (Product obj:bill){
                     listOfProducts.stream().filter(p->p.getCode().equals(obj.getCode())).findFirst().get().updateQuantity(obj.getQuantity());
                 }
-                System.out.println("\n\nThank You for Purchasing.");
+                System.out.println("\u001B[32m"+"\n\nThank You for Purchasing."+"\u001B[0m");
                 break;
             }
         }
@@ -57,29 +57,29 @@ public class Account {
                 System.out.print("Enter the new Quantity: ");
                 long quantity = sc.nextLong();
                 if(!listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get().checkQuantity(quantity)){
-                    System.out.println("\nSorry for your Inconvenience but that much stock is not available for the required item.");
+                    System.out.println("\u001B[31m"+"\nSorry for your Inconvenience but that much stock is not available for the required item."+"\u001B[0m");
                     System.out.println("Stock Available: "+listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get().getQuantity()+"\n");
                     System.out.println("We will Restock the Product as soon as Possible");
                 }
                 else {
                     bill.stream().filter(obj -> obj.getCode().equals(code)).findFirst().get().setQuantity(quantity);
-                    System.out.println("Quantity changed Successfully!!!");
+                    System.out.println("\u001B[32m"+"Quantity changed Successfully!!!"+"\u001B[0m");
                 }
             }else if(choice==2) {
                 bill.removeIf(obj->obj.getCode().equals(code));
-                System.out.println("Product Removed from bill Successfully");
+                System.out.println("\u001B[32m"+"Product Removed from bill Successfully"+"\u001B[0m");
             }else {
-                System.out.println("Please Enter a valid Choice!!!");
+                System.out.println("\u001B[31m"+"Please Enter a valid Choice!!!"+"\u001B[0m");
             }
         }
         else{
-            System.out.println("Please Enter a Valid Product Code from the Bill!!!");
+            System.out.println("\u001B[31m"+"Please Enter a Valid Product Code from the Bill!!!"+"\u001B[0m");
         }
     }
 
     public static void displayBill(LinkedHashSet<Product> bill){
         if(bill.isEmpty()){
-            System.out.println("No Items found in the Cart. Please Try Again!!!");
+            System.out.println("\u001B[31m"+"No Items found in the Cart. Please Try Again!!!"+"\u001B[0m");
             return;
         }
         System.out.println("\nCode_of_product   Name_of_product   Qnt.   Price ");
@@ -103,7 +103,7 @@ public class Account {
 
     public static void getReport(LinkedHashSet<Product>listOfProducts){
         if(billList.isEmpty()){
-            System.out.println("No Bill Records Found!!!");
+            System.out.println("\u001B[31m"+"No Bill Records Found!!!"+"\u001B[0m");
             return;
         }
 
@@ -118,7 +118,7 @@ public class Account {
             getProductReport(listOfProducts);
         }
         else {
-            System.out.println("Enter a Valid Choice!!!");
+            System.out.println("\u001B[31m"+"Enter a Valid Choice!!!"+"\u001B[0m");
         }
     }
     public static void getProductReport(LinkedHashSet<Product>listOfProducts){
@@ -142,7 +142,7 @@ public class Account {
             System.out.print(String.format("%" + -21 + "s", totalProduct));
             System.out.print(totalSales+"\n");
         }else{
-            System.out.println("Please Enter Valid Product  Code!!!");
+            System.out.println("\u001B[31m"+"Please Enter Valid Product  Code!!!"+"\u001B[0m");
         }
     }
     public static void getBillReport(){
@@ -173,15 +173,15 @@ public class Account {
                 billList.remove(billList.stream().skip(bid-1).findFirst().get());
                 System.out.println("Bill with id "+bid+"was deleted successfully.");
             }else{
-                System.out.println("Please Enter a Valid Choice!!!");
+                System.out.println("\u001B[31m"+"Please Enter a Valid Choice!!!"+"\u001B[0m");
             }
         }
         else if(choice.equals("N")){
-            System.out.println("No Problem.");
+            System.out.println("\u001B[32m"+"No Problem."+"\u001B[0m");
             return;
         }
         else{
-            System.out.println("Please Enter a Valid Choice!!!");
+            System.out.println("\u001B[31m"+"Please Enter a Valid Choice!!!"+"\u001B[0m");
         }
     }
 

@@ -6,7 +6,7 @@ public class MainMenu {
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("\nMain Menu:");
+            System.out.println("\u001B[34m"+"\nMain Menu:"+"\u001B[0m");
             System.out.println("1. Purchase Products");
             System.out.println("2. List Products");
             System.out.println("3. Edit Products");
@@ -37,8 +37,8 @@ public class MainMenu {
                     obj.deleteProduct();
                     break;
                 case 0:
-                    System.out.println("Thank You for using our Sales Management System.");
-                    System.out.println("Exiting...");
+                    System.out.println("\u001B[32m"+"Thank You for using our Sales Management System."+"\u001B[0m");
+                    System.out.println("\u001B[32m"+"Exiting..."+"\u001B[0m");
                     break;
                 default:
                     System.out.println("\u001B[31m"+"Invalid choice. Try again."+"\u001B[0m"+"\n");
