@@ -5,17 +5,15 @@ public class Product {
     private String name;
     private double price;
     private long quantity;
-    public LinkedHashSet<Product> listOfProducts;
     // Constructor
-    public Product(String code, String name, double price,long quantity) {
+    public Product(String code, String name, double price, long quantity) {
         this.code = code;
         this.name = name;
         this.price = price;
         this.quantity=quantity;
     }
-    public Product() {
-        listOfProducts=new LinkedHashSet<Product>();
-    }
+
+    public Product(){}
 
     // Getters and setters
     public String getCode() {

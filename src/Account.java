@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 //For making bills
 public class Account {
+        //billList stores the list of bills
         public static LinkedHashSet<LinkedHashSet<Product>> billList= new LinkedHashSet<LinkedHashSet<Product>>();
 
         public static void getBill(LinkedHashSet<Product>listOfProducts,LinkedHashSet<Product> bill) {
@@ -14,7 +15,11 @@ public class Account {
         Scanner sc = new Scanner(System.in);
 
         while(true) {
-            System.out.println("Do you want to edit the Bill?");
+            if(bill.isEmpty()){
+                System.out.println("No Items found in the Cart. Please Try Again!!!");
+                return;
+            }
+            System.out.println("\nDo you want to edit the Bill?");
             System.out.println("\nEnter 1 for Editing the Bill");
             System.out.println("Enter 2 to Pay the Bill");
             System.out.print("Enter Your Choice: ");
@@ -22,6 +27,10 @@ public class Account {
             if (choice == 1) {
                 editBill(listOfProducts,bill);
             } else if (choice == 2) {
+                if(bill.isEmpty()){
+                    System.out.println("No Items found in the Cart. Please Try Again!!!");
+                    return;
+                }
                 System.out.println("Final Bill");
                 displayBill(bill);
                 billList.add(bill);
@@ -41,7 +50,7 @@ public class Account {
         String code=sc.next();
         if(bill.stream().anyMatch(obj->obj.getCode().equals(code))){
             System.out.println("\nEnter 1 for Editing the Quantity");
-            System.out.println("Enter 2 to Deleting the product from the bill");
+            System.out.println("Enter 2 to Delete the Product from the bill");
             System.out.print("Enter Your Choice: ");
             int choice=sc.nextInt();
             if(choice==1){
@@ -50,6 +59,7 @@ public class Account {
                 if(!listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get().checkQuantity(quantity)){
                     System.out.println("\nSorry for your Inconvenience but that much stock is not available for the required item.");
                     System.out.println("Stock Available: "+listOfProducts.stream().filter(obj->obj.getCode().equals(code)).findFirst().get().getQuantity()+"\n");
+                    System.out.println("We will Restock the Product as soon as Possible");
                 }
                 else {
                     bill.stream().filter(obj -> obj.getCode().equals(code)).findFirst().get().setQuantity(quantity);

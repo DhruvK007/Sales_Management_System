@@ -12,6 +12,7 @@ public class MainMenu {
             System.out.println("3. Edit Products");
             System.out.println("4. Lifetime Bills/Product Report");
             System.out.println("5. Add Products");
+            System.out.println("6. Delete Products");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -27,10 +28,13 @@ public class MainMenu {
                     obj.modifyProduct();
                     break;
                 case 4:
-                    Account.getReport(obj.listOfProducts);
+                    Account.getReport(obj.getListOfProducts());
                     break;
                 case 5:
                     obj.addProduct();
+                    break;
+                case 6:
+                    obj.deleteProduct();
                     break;
                 case 0:
                     System.out.println("Thank You for using our Sales Management System.");

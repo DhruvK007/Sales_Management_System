@@ -1,8 +1,8 @@
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 public class PublicProduct extends Product {
+    private LinkedHashSet<Product> listOfProducts;
 
     // Define public product methods here
     public PublicProduct(String code, String name, double price,long quantity) {
@@ -11,7 +11,10 @@ public class PublicProduct extends Product {
     }
 
     public PublicProduct() {
-        super();
+        listOfProducts=new LinkedHashSet<Product>();
+    }
+    public LinkedHashSet<Product> getListOfProducts() {
+        return listOfProducts;
     }
     public void addProduct() {
 
@@ -54,7 +57,7 @@ public class PublicProduct extends Product {
         String modifyCode=sc.next();
 
         //To check whether the product of the entered code exists
-        if(!listOfProducts.stream().anyMatch(obj->obj.getCode().equals(modifyCode))){
+        if(listOfProducts.stream().noneMatch(obj->obj.getCode().equals(modifyCode))){
             System.out.println("Please Enter a Code of the Product that is Available!!!");
         }
 
@@ -131,7 +134,7 @@ public class PublicProduct extends Product {
             System.out.print(String.format("%" + -13 + "s", p.getPrice()));
             System.out.print("    ");
             System.out.print(String.format("%" + -16 + "s", p.getQuantity()));
-            System.out.println("");
+            System.out.println();
         }
     }
 
@@ -150,7 +153,7 @@ public class PublicProduct extends Product {
             System.out.print("Enter the Product code: ");
             String purchaseCode=sc.next();
 
-            //To Checkout after Adding items to Cart
+            //To check out after Adding items to Cart
             if(purchaseCode.equals("Checkout")){
                 Account.getBill(listOfProducts,bill);
                 break;
@@ -187,7 +190,7 @@ public class PublicProduct extends Product {
         if (listOfProducts.stream().anyMatch(obj->obj.getCode().equals(deleteCode))){
             //Removes Object with the Entered Code
             listOfProducts.removeIf(obj -> obj.getCode().equals(deleteCode));
-            System.out.println("The product with code:"+deleteCode+"was deleted Successfully.");
+            System.out.println("The product with code:"+deleteCode+" was deleted Successfully.");
         }
         else{
             System.out.println("\nPlease Enter a valid Product Key!!");

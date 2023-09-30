@@ -1,7 +1,7 @@
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 
-public class PrivateProduct extends Product {
+public class PrivateProduct extends PublicProduct {
     // Define private product methods here
     public PrivateProduct(String code, String name, double price,long quantity) {
         super(code, name, price,quantity);
@@ -9,7 +9,7 @@ public class PrivateProduct extends Product {
 
     public String getLastRecordCode(LinkedHashSet<Product> productLinkedHashSet) {
         // Implement logic to return the code of the last record in the product file
-        Product temp= productLinkedHashSet.stream().skip(listOfProducts.size()-1).findFirst().get();
+        Product temp= productLinkedHashSet.stream().skip(getListOfProducts().size()-1).findFirst().get();
         if(temp==null){
             return "No Record Found!!!";
         }
