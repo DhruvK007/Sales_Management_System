@@ -21,41 +21,26 @@ public class MainMenu {
             choice = scanner.nextInt();
 
             switch (choice) {
-                case 1:
-                    obj.purchaseProduct();
-                    break;
-                case 2:
-                    obj.listProducts();
-                    break;
-                case 3:
-                    obj.modifyProduct();
-                    break;
-                case 4:
-                    Account.getReport(obj.getListOfProducts());
-                    break;
-                case 5:
-                    obj.addProduct();
-                    break;
-                case 6:
-                    obj.deleteProduct();
-                    break;
-                case 7:
-                    System.out.println(privateProduct.getLastRecord(obj.getListOfProducts()));
-                    break;
-                case 8:
+                case 1 -> obj.purchaseProduct();
+                case 2 -> obj.listProducts();
+                case 3 -> obj.modifyProduct();
+                case 4 -> Account.getReport(obj.getListOfProducts());
+                case 5 -> obj.addProduct();
+                case 6 -> obj.deleteProduct();
+                case 7 -> System.out.println(privateProduct.getLastRecord(obj.getListOfProducts()));
+                case 8 -> {
                     int number = privateProduct.getRecordNumberByCode(obj.getListOfProducts());
-                    if(number==-1){
+                    if (number == -1) {
                         System.out.println("No Product exists with the Entered Code!!!");
-                    }else {
+                    } else {
                         System.out.println("The Record Number: " + number);
                     }
-                    break;
-                case 0:
-                    System.out.println("\u001B[32m"+"Thank You for using our Sales Management System."+"\u001B[0m");
-                    System.out.println("\u001B[32m"+"Exiting..."+"\u001B[0m");
-                    break;
-                default:
-                    System.out.println("\u001B[31m"+"Invalid choice. Try again."+"\u001B[0m"+"\n");
+                }
+                case 0 -> {
+                    System.out.println("\u001B[32m" + "Thank You for using our Sales Management System." + "\u001B[0m");
+                    System.out.println("\u001B[32m" + "Exiting..." + "\u001B[0m");
+                }
+                default -> System.out.println("\u001B[31m" + "Invalid choice. Try again." + "\u001B[0m" + "\n");
             }
         } while (choice != 0);
     }

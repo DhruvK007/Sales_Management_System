@@ -5,12 +5,6 @@ public class PublicProduct extends Product {
 
     //Stores the list of Products
     private LinkedHashSet<Product> listOfProducts;
-
-    public PublicProduct(String code, String name, double price,long quantity) {
-        super(code, name, price,quantity);
-        listOfProducts=new LinkedHashSet<Product>();
-    }
-
     public PublicProduct() {
         listOfProducts=new LinkedHashSet<Product>();
     }
@@ -41,7 +35,7 @@ public class PublicProduct extends Product {
             long addQuantity = sc.nextLong();
 
             //Add to the list
-            listOfProducts.add(new PublicProduct(addCode, addName, addPrice, addQuantity));
+            listOfProducts.add(new Product(addCode, addName, addPrice, addQuantity));
             System.out.println("\u001B[32m"+"Product Added Successfully..."+"\u001B[0m");
         }
     }
@@ -78,8 +72,7 @@ public class PublicProduct extends Product {
             System.out.print(String.format("%" + -13 + "s", display.getPrice()));
             System.out.print("   ");
             System.out.print(String.format("%" + -16 + "s", display.getQuantity()));
-            System.out.println("");
-            System.out.println("\nWhich Field of the Product do you want to Modify?");
+            System.out.println("\n\nWhich Field of the Product do you want to Modify?");
 
             System.out.println("Enter 1 for Changing Name");
             System.out.println("Enter 2 for Changing Price");

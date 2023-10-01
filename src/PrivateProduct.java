@@ -3,10 +3,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class PrivateProduct extends PublicProduct {
-    public PrivateProduct(String code, String name, double price,long quantity) {
-        super(code, name, price,quantity);
-    }
-    public PrivateProduct(){};
+    public PrivateProduct(){}
     public String getLastRecord(LinkedHashSet<Product> productLinkedHashSet) {
 
         if(productLinkedHashSet.isEmpty()){
