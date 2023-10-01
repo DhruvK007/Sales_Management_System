@@ -179,7 +179,12 @@ public class PublicProduct extends Product {
                     long quantity=sc.nextLong();
                     Product temp =  listOfProducts.stream().filter(obj->obj.getCode().equals(purchaseCode)).findFirst().get();
                     if(temp.checkQuantity(quantity)){
-                        bill.add(new Product(purchaseCode,temp.getName(),temp.getPrice(),quantity));
+                        if(bill.stream().anyMatch(obj->obj.getCode().equals(purchaseCode))){
+                            bill.stream().filter(obj->obj.getCode().equals(purchaseCode)).findFirst().get().addQuantity(quantity);
+                        }
+                        else {
+                            bill.add(new Product(purchaseCode, temp.getName(), temp.getPrice(), quantity));
+                        }
                     }
                     else{
                         System.out.println("\u001B[31m"+"\nSorry for your Inconvenience but that much stock is not available for the required item."+"\u001B[0m");
