@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println("\u001B[35m"+"==========================================================================="+"\u001B[0m");
-        System.out.println("\u001B[32m"+"\t\t\t    \u001B[1m Welcome to our Sales Management System"+"\u001B[0m");
+        System.out.println("\u001B[32m"+"\t\t\t    \u001B[1m\u001B[4mWelcome to our Sales Management System"+"\u001B[0m");
         System.out.println("\u001B[32m"+"\n\tOur project facilitates management of product inventory,\n\tpurchasing products, bills report, product report and many more."+"\u001B[0m");
         System.out.println("\u001B[34m"+"\n\tTeam Members:"+"\u001B[0m");
         System.out.println("\t22CE054 Dhruv Kotadiya");
