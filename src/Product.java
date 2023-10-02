@@ -1,5 +1,3 @@
-import java.util.LinkedHashSet;
-
 public class Product {
     private String code;
     private String name;
@@ -13,17 +11,13 @@ public class Product {
         this.quantity=quantity;
     }
 
+    //Empty default constructor to solve problem in inheritance
     public Product(){}
 
     // Getters and setters
     public String getCode() {
         return code;
     }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return name;
     }
@@ -50,11 +44,11 @@ public class Product {
     public void updateQuantity(long quantity){
         this.quantity-=quantity;
     }
+    public void addQuantity(long quantity){
+        this.quantity+=quantity;
+    }
     public boolean checkQuantity(long quantity){
-        if(this.quantity-quantity<0){
-            return false;
-        }
-        return true;
+        return !(this.quantity-quantity<0);
     }
 }
 

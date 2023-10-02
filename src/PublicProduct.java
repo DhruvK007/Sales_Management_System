@@ -2,14 +2,9 @@ import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 public class PublicProduct extends Product {
+
+    //Stores the list of Products
     private LinkedHashSet<Product> listOfProducts;
-
-    // Define public product methods here
-    public PublicProduct(String code, String name, double price,long quantity) {
-        super(code, name, price,quantity);
-        listOfProducts=new LinkedHashSet<Product>();
-    }
-
     public PublicProduct() {
         listOfProducts=new LinkedHashSet<Product>();
     }
@@ -40,13 +35,14 @@ public class PublicProduct extends Product {
             long addQuantity = sc.nextLong();
 
             //Add to the list
-            listOfProducts.add(new PublicProduct(addCode, addName, addPrice, addQuantity));
+            listOfProducts.add(new Product(addCode, addName, addPrice, addQuantity));
             System.out.println("\u001B[32m"+"Product Added Successfully..."+"\u001B[0m");
         }
     }
 
     public void modifyProduct() {
 
+        //To check whether any product exists or not
         if(listOfProducts.isEmpty()){
             System.out.println("\u001B[31m"+"No Product Records Found!!!"+"\u001B[0m");
             return;
@@ -66,6 +62,9 @@ public class PublicProduct extends Product {
             Product display= listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get();
 
             System.out.println("\nProduct Code   Product Name     Product Price    Product Quantity");
+
+            //Used String.format to Left align the Values, it is just like printf in C
+
             System.out.print(String.format("%" + -12 + "s", display.getCode()));
             System.out.print("   ");
             System.out.print(String.format("%" + -14 + "s", display.getName()));
@@ -73,8 +72,7 @@ public class PublicProduct extends Product {
             System.out.print(String.format("%" + -13 + "s", display.getPrice()));
             System.out.print("   ");
             System.out.print(String.format("%" + -16 + "s", display.getQuantity()));
-            System.out.println("");
-            System.out.println("\nWhich Field of the Product do you want to Modify?");
+            System.out.println("\n\nWhich Field of the Product do you want to Modify?");
 
             System.out.println("Enter 1 for Changing Name");
             System.out.println("Enter 2 for Changing Price");
@@ -103,6 +101,8 @@ public class PublicProduct extends Product {
             else if(choice==3){
                 System.out.print("Enter the Quantity you want to update: ");
                 long updatedQuantity = sc.nextLong();
+
+                //To handle user entering Negative Quantities
                 if(updatedQuantity<0){
                     System.out.println("\u001B[31m"+"Quantity Cannot be Negative!!!"+"\u001B[0m");
                     return;
@@ -119,8 +119,10 @@ public class PublicProduct extends Product {
     }
 
     public void listProducts() {
+
+        //To check whether any product exist or not
         if(listOfProducts.isEmpty()){
-            System.out.println("\u001B[31m"+"\nNo Product Records Found!!!"+"\u001B[0m");
+            System.out.println("\u001B[31m"+"No Product Records Found!!!"+"\u001B[0m");
             return;
         }
 
@@ -139,6 +141,8 @@ public class PublicProduct extends Product {
     }
 
     public void purchaseProduct() {
+
+        //To check whether any product exist or not
         if(listOfProducts.isEmpty()){
             System.out.println("\u001B[31m"+"No Product Records Found!!!"+"\u001B[0m");
             return;
@@ -155,6 +159,8 @@ public class PublicProduct extends Product {
 
             //To check out after Adding items to Cart
             if(purchaseCode.equals("Checkout")){
+                //Function call by static getBill method in account
+                //We pass the listOfProducts and items purchased i.e. bill
                 Account.getBill(listOfProducts,bill);
                 break;
             }
@@ -166,7 +172,18 @@ public class PublicProduct extends Product {
                     long quantity=sc.nextLong();
                     Product temp =  listOfProducts.stream().filter(obj->obj.getCode().equals(purchaseCode)).findFirst().get();
                     if(temp.checkQuantity(quantity)){
-                        bill.add(new Product(purchaseCode,temp.getName(),temp.getPrice(),quantity));
+                        if(bill.stream().anyMatch(obj->obj.getCode().equals(purchaseCode))){
+                            if(!temp.checkQuantity((bill.stream().filter(obj->obj.getCode().equals(purchaseCode)).findFirst().get().getQuantity())+quantity)){
+                                System.out.println("\u001B[31m"+"\nSorry for your Inconvenience but that much stock is not available for the required item."+"\u001B[0m");
+                                System.out.println("Stock Available: "+temp.getQuantity());
+                            }
+                            else {
+                                bill.stream().filter(obj -> obj.getCode().equals(purchaseCode)).findFirst().get().addQuantity(quantity);
+                            }
+                        }
+                        else {
+                            bill.add(new Product(purchaseCode, temp.getName(), temp.getPrice(), quantity));
+                        }
                     }
                     else{
                         System.out.println("\u001B[31m"+"\nSorry for your Inconvenience but that much stock is not available for the required item."+"\u001B[0m");
@@ -182,6 +199,13 @@ public class PublicProduct extends Product {
     }
 
     public void deleteProduct() {
+
+        //To check if any products exist
+        if(listOfProducts.isEmpty()){
+            System.out.println("\u001B[31m"+"No Product Records Found!!"+"\u001B[0m");
+            return;
+        }
+
         System.out.print("Enter the code of the Product you want to Delete: ");
         Scanner sc = new Scanner(System.in);
         String deleteCode = sc.next();
