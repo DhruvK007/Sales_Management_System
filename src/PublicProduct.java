@@ -214,7 +214,7 @@ public class PublicProduct extends Product {
         if (listOfProducts.stream().anyMatch(obj->obj.getCode().equals(deleteCode))){
             //Removes Object with the Entered Code
             listOfProducts.removeIf(obj -> obj.getCode().equals(deleteCode));
-            System.out.println("The product with code:"+deleteCode+" was deleted Successfully.");
+            System.out.println("\u001B[32m"+"The product with code:"+deleteCode+" was deleted Successfully."+"\u001B[0m");
         }
         else{
             System.out.println("\u001B[31m"+"\nPlease Enter a valid Product Key!!"+"\u001B[0m");

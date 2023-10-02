@@ -177,7 +177,7 @@ public class Account {
                 System.out.print("Enter the ID of the Bill: ");
                 long bid= sc.nextInt();
                 billList.remove(billList.stream().skip(bid-1).findFirst().get());
-                System.out.println("Bill with id "+bid+"was deleted successfully.");
+                System.out.println("\u001B[32m"+"Bill with id-"+bid+"\twas deleted successfully."+"\u001B[0m");
             }else{
                 System.out.println("\u001B[31m"+"Please Enter a Valid Choice!!!"+"\u001B[0m");
             }
