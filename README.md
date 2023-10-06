@@ -1,2 +1,2 @@
 # Sales_Management_System
-Sales+Management+System+Java
+Simple project on Sales Management / Inventory Management System in Java(100%).
