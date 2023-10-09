@@ -148,6 +148,8 @@ public class PublicProduct extends Product {
             return;
         }
 
+        listProducts();
+
         LinkedHashSet<Product> bill= new LinkedHashSet<Product>();
         Scanner sc = new Scanner(System.in);
 
