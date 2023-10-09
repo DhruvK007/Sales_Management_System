@@ -7,7 +7,7 @@ public class PrivateProduct extends PublicProduct {
     public String getLastRecord(LinkedHashSet<Product> productLinkedHashSet) {
 
         if(productLinkedHashSet.isEmpty()){
-            return "No Record Found!!!";
+            return "\u001B[31m"+"No Record Found!!!"+ "\u001B[0m";
         }
         Product temp = productLinkedHashSet.stream().skip(productLinkedHashSet.size()-1).findFirst().get() ;
         return ("\nCode: "+temp.getCode()+"\nName: "+temp.getName()+"\nPrice: "+temp.getPrice()+"\nQuantity: "+temp.getQuantity());

@@ -31,7 +31,7 @@ public class MainMenu {
                 case 8 -> {
                     int number = privateProduct.getRecordNumberByCode(obj.getListOfProducts());
                     if (number == -1) {
-                        System.out.println("No Product exists with the Entered Code!!!");
+                        System.out.println("\u001B[31m"+"No Product exists with the Entered Code!!!"+ "\u001B[0m");
                     } else {
                         System.out.println("The Record Number: " + number);
                     }

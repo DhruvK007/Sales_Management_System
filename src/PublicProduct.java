@@ -7,6 +7,7 @@ public class PublicProduct extends Product {
     private LinkedHashSet<Product> listOfProducts;
     public PublicProduct() {
         listOfProducts=new LinkedHashSet<Product>();
+        listOfProducts.add(new Product("A","Chocolate",100,500));
     }
     public LinkedHashSet<Product> getListOfProducts() {
         return listOfProducts;
