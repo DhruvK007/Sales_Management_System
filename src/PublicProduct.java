@@ -179,8 +179,12 @@ public class PublicProduct extends Product {
                     System.out.print("Enter the Quantity: ");
                     long quantity=sc.nextLong();
                     Product temp =  listOfProducts.stream().filter(obj->obj.getCode().equals(purchaseCode)).findFirst().get();
+
+                    //If Entered Quantity is less than Stock
                     if(temp.checkQuantity(quantity)){
+                        //If Product is inputted before in the bill
                         if(bill.stream().anyMatch(obj->obj.getCode().equals(purchaseCode))){
+                            //If Quantity becomes Negative or Quantity>Stock
                             if(!temp.checkQuantity((bill.stream().filter(obj->obj.getCode().equals(purchaseCode)).findFirst().get().getQuantity())+quantity)){
                                 System.out.println("\u001B[31m"+"\nSorry for your Inconvenience but that much stock is not available for the required item."+"\u001B[0m");
                                 System.out.println("Stock Available: "+temp.getQuantity());
@@ -198,6 +202,8 @@ public class PublicProduct extends Product {
                         System.out.println("Stock Available: "+temp.getQuantity());
                     }
                 }
+
+                //More than Stock
                 else{
                     System.out.println("\u001B[31m"+"\nPlease Enter a valid Product Code!!"+"\u001B[0m");
                 }
@@ -208,7 +214,7 @@ public class PublicProduct extends Product {
 
     public void deleteProduct() {
 
-        //To check if any products exist
+        //If there are no Products Available
         if(listOfProducts.isEmpty()){
             System.out.println("\u001B[31m"+"No Product Records Found!!"+"\u001B[0m");
             return;

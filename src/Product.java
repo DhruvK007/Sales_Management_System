@@ -47,6 +47,7 @@ public class Product {
     public void addQuantity(long quantity){
         this.quantity+=quantity;
     }
+    //To check whether stock>=quantity i.e. Required Stock available or Not
     public boolean checkQuantity(long quantity){
         return !(this.quantity-quantity<0);
     }
