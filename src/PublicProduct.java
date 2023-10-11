@@ -95,6 +95,11 @@ public class PublicProduct extends Product {
                 System.out.print("Enter the Price you want to update: ");
                 double updatedPrice = sc.nextDouble();
 
+                if(updatedPrice<0){
+                    System.out.println("\u001B[31m"+"Price Cannot be Negative!!!"+"\u001B[0m");
+                    return;
+                }
+
                 //Updating Price using setPrice setter Method
                 listOfProducts.stream().filter(obj -> obj.getCode().equals(modifyCode)).findFirst().get().setPrice(updatedPrice);
                 System.out.println("\u001B[32m"+"Price changed successfully to "+updatedPrice+"\u001B[0m");
